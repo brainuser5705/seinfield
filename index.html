@@ -5,12 +5,17 @@
         <script src="script.js"></script>
     </head>
     <body onload="generateMonth(new Date())">
-        <div id="title">Placeholder</div>
-        <table id="calendar" class="table table-bordered">
-
-        </table>
-        <button onclick="decrementCurrentMonth()">Prev</button>
-        <button onclick="incrementCurrentMonth()">Next</button>
+        <div style="margin:10em; text-align: center;">
+            <h1 id="title">Placeholder</h1>
+            <button onclick="decrementCurrentMonth()" style="margin-top:1em; margin-left:3em; margin-right:3em; margin-bottom: 2em;">Prev</button>
+            <button onclick="incrementCurrentMonth()" style="margin-top:1em; margin-left:3em; margin-right:3em; margin-bottom: 2em;">Next</button>
+            <div style="margin-left: 15em; margin-right:15em;">
+                <div class="card">
+                    <table id="calendar" class="table table-bordered"></table>
+                </div>
+            </div>
+            
+        </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
