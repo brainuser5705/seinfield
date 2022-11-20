@@ -6,12 +6,19 @@ const router = express.Router();
 // Get a task
 router.get('/:id', async (req, res) => {
     const {id} = req.params;
-    return res.json(await Task.findOne({task_id: id}));
+    if (await Task.exists({task_id: id})){
+        return res.json(await Task.findOne({task_id: id}).exec());
+    }
+    return res.json({"msg": "doesn't exist"});
 });
 
-// Update a task
-router.patch('/:task_id', (req, res) => {
-    res.json({msg: "UPDATE task by id"});
+// Increment the end date
+router.patch('/:task_id/increment', async (req, res) => {
+    td = req.body.dateString;
+    console.log(td);
+    const {task_id} = req.params;
+    await Task.updateOne({task_id: task_id},{endDate: td});
+    return res.json(await Task.findOne({task_id: task_id}).exec());
 });
 
 // Create a task

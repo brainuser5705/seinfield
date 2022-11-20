@@ -4,6 +4,12 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
+function init(date){
+    generateTitle(date);
+    generateMonth(date);
+    getData(1);
+}
+
 function generateTitle(date){
     document.getElementById("title").innerHTML = monthNames[date.getMonth()] + " " + date.getFullYear();   
 }
@@ -15,19 +21,18 @@ function clearTable(){
 function decrementCurrentMonth(){
     clearTable();
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth()-1, 1);
-    console.log(currentDate);
     generateMonth(currentDate);
+    getData(1);
 }
 
 function incrementCurrentMonth(){
     clearTable();
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 1);
-    console.log(currentDate);
     generateMonth(currentDate);
+    getData(1);
 }
 
 function generateMonth(date){
-    generateTitle(date);
     currentMonth = date.getMonth();
     while (date.getMonth() == currentMonth){
         date.setDate(date.getDate()+1);
@@ -64,6 +69,7 @@ function generateWeek(finalDate){
 
     if (finalDate.getDay() == 0){
         td = document.createElement("td");
+        td.setAttribute("id", finalDate.toString());
         td.addEventListener("click", function (){
             this.innerHTML = "X";
         });
@@ -78,6 +84,21 @@ function generateWeek(finalDate){
     return finalDate;
 }
 
-// function populate(){
-//     json = JSON.parse(data);
-//
+function getData(taskId) {
+    const request = new Request('http://localhost:4000/' + taskId);
+    fetch(request)
+        .then((response) => response.json())
+        .then((json) => populate(json));
+}
+
+function populate(json){
+    document.querySelectorAll("td").forEach(element => {
+        startDateObject = new Date(json.startDate);
+        endDateObject = new Date(json.endDate);
+        dateObject = new Date(element.id);
+        if (dateObject >= startDateObject && dateObject <= endDateObject){
+            console.log("Updated for " + dateObject.toString());
+            element.innerHTML="you did it!";
+        }
+    });;
+}
