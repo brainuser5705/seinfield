@@ -3,19 +3,14 @@ const Task = require('../models/Task');
 
 const router = express.Router();
 
-// Get all tasks
-router.get('/', async (req, res) => {
-    res.json(Task.findAll());
+// Get a task
+router.get('/:id', async (req, res) => {
+    const {id} = req.params;
+    return res.json(await Task.findOne({task_id: id}));
 });
 
-// // Get a task
-// router.get('/:id', async (req, res) => {
-//     const task = await Task.
-//     res.json({msg: "GET task by id"});
-// });
-
 // Update a task
-router.patch('/:id', (req, res) => {
+router.patch('/:task_id', (req, res) => {
     res.json({msg: "UPDATE task by id"});
 });
 
