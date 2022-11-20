@@ -52,36 +52,36 @@ function generateWeek(finalDate){
     document.getElementById("calendar").prepend(row);
 
     while (finalDate.getDay() != 0){
-        td = document.createElement("td");
-        td.setAttribute("id", finalDate.toString());
-        td.addEventListener("click", function (){
-            this.innerHTML = "X";
-        });
-        if (finalDate.getMonth() == month){           
-            td.innerHTML = finalDate.getDate();           
-        } else {
-            td.innerHTML = " ";        
-        }
+        td = generateDay(finalDate);
         row.prepend(td)
         finalDate.setDate(finalDate.getDate()-1);
-
     }
-
+    // extra day
     if (finalDate.getDay() == 0){
-        td = document.createElement("td");
-        td.setAttribute("id", finalDate.toString());
-        td.addEventListener("click", function (){
-            this.innerHTML = "X";
-        });
-        if (finalDate.getMonth() == month){
-            td.innerHTML = finalDate.getDate();  
-        } else {
-            td.innerHTML = " ";
-        }
+        td = generateDay(finalDate);
         row.prepend(td)
         finalDate.setDate(finalDate.getDate()-1);
     }
     return finalDate;
+}
+
+function generateDay(date){
+    td = document.createElement("td");
+    td.setAttribute("id", date.toString());
+    if (date.getMonth() == month){   
+        num =  date.getDate();
+        td.innerHTML = num;
+        // can only click if date is today
+        if (date.getDate() == (new Date()).getDate()){
+            td.addEventListener("click", function (){
+                this.innerHTML = this.innerHTML == "X" ? num : "X";
+            });
+        }             
+    } else {
+        td.innerHTML = " ";        
+    }
+    
+    return td;
 }
 
 function getData(taskId) {
