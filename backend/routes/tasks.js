@@ -42,4 +42,4 @@ router.delete('/:id', (req, res) => {
     res.json({msg: "DELETE task by id"});
 });
 
-module.exports = router;
+module.exports = rout
