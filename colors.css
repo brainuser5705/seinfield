@@ -1,0 +1,12 @@
+.red-x{
+    color: red;
+    font-weight: bold;
+}
+
+.highlight-day{
+    background-color: rgb(248, 248, 170);
+}
+
+.highlight-day:hover{
+    background-color: rgb(252, 252, 146);
+}

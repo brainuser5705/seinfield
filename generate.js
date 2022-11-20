@@ -2,9 +2,11 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-function renderCalendar(date){
+function renderCalendar(date, taskId){
+    document.getElementById("calendar").innerHTML = "";
     generateTitle(date);
     generateMonth(date);
+    populate(taskId);
 }
 
 function generateTitle(date){
@@ -53,21 +55,91 @@ function generateDay(date, currentMonth) {
 
         numElement.setAttribute("class", "number");
         numElement.innerHTML = date.get().getDate();
-
-        conElement.setAttribute("class", "click-area");
-        conElement.innerHTML = " ";
         
         // can only click if date is today
-        if (date.get().getDate() == (new Date()).getDate()){
+        refDate = new Date();
+        if ((date.get().getMonth() == refDate.getMonth()) && (date.get().getFullYear() == refDate.getFullYear()) && (date.get().getDate() == refDate.getDate())){
+            td.setAttribute("class", "highlight-day");
             td.addEventListener("click", function (){
-                conElement.innerHTML = "X";
+                td.setAttribute("class", "red-x");
+                td.innerHTML = "X";
+                update(GlobalData.id);
             });
         }         
     }
 
     td.appendChild(numElement);
-    td.appendChild(conElement);
 
     return td;
     
 }
+
+function populate(taskId){
+    getTask(taskId).then((json) => {
+        document.querySelectorAll("td").forEach(element => {
+            startDateObject = new Date(json.startDate);
+            endDateObject = new Date(json.endDate);
+            dateObject = new Date(element.id);
+            if (dateObject >= startDateObject && dateObject <= endDateObject){
+                element.setAttribute("class", "red-x");
+                element.innerHTML="X";
+            }
+        })
+    })
+}
+
+function renderTask(taskId){
+    getTask(taskId).then((json) => {
+        document.getElementById("task-title").innerHTML = json.title;
+    });
+}
+
+function renderDropDown(){
+    dropdown = document.getElementById("dropdown-menu");
+    dropdown.innerHTML = ''; // clear it
+    getAllTasks().then((response) => {
+        response.forEach(task => {
+            div = document.createElement("div");
+            div.innerHTML = task.title;
+            div.setAttribute("class", "dropdown-item");
+            div.addEventListener("click", function() {
+                console.log("Clicked for task id: " + task._id);
+                GlobalData.id = task._id;
+                initialize();
+            });
+            dropdown.appendChild(div);
+        });
+    });
+}
+
+// function openAddTask() {
+//     console.log("openAddTask");
+//     let modal = document.createElement('div');
+//     modal.className = 'card';
+//     modal.style = 'width: 250px; height: 150px;';
+
+//     let modalBody = document.createElement('div');
+//     modalBody.className = 'card-body';
+
+//     let modalTitle = document.createElement('h5');
+//     modalTitle.className = 'card-title';
+//     modalTitle.innerHTML = 'Task Name';
+//     modalBody.appendChild(modalTitle);
+    
+//     let titleInput = document.createElement('input');
+//     modalBody.appendChild(titleInput);
+
+//     let submit = document.createElement('button');
+//     submit.innerHTML = "Submit";
+//     modalBody.appendChild(submit);
+//     // Will need to pass the task name from the input box in to the addTask
+//     submit.onclick = addTask();
+
+//     modal.appendChild(modalBody);
+
+//     document.getElementById("form").appendChild(modal);
+// }
+
+// function addTask(){
+//     console.log('Add Task');
+// }

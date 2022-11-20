@@ -103,34 +103,3 @@ function populate(json){
     });;
 }
 
-function openAddTask() {
-    console.log("openAddTask");
-    let modal = document.createElement('div');
-    modal.className = 'card';
-    modal.style = 'width: 250px; height: 150px;';
-
-    let modalBody = document.createElement('div');
-    modalBody.className = 'card-body';
-
-    let modalTitle = document.createElement('h5');
-    modalTitle.className = 'card-title';
-    modalTitle.innerHTML = 'Task Name';
-    modalBody.appendChild(modalTitle);
-    
-    let titleInput = document.createElement('input');
-    modalBody.appendChild(titleInput);
-
-    let submit = document.createElement('button');
-    submit.innerHTML = "Submit";
-    modalBody.appendChild(submit);
-    // Will need to pass the task name from the input box in to the addTask
-    submit.onclick = addTask();
-
-    modal.appendChild(modalBody);
-
-    document.getElementById("form").appendChild(modal);
-}
-
-function addTask(){
-    console.log('Add Task');
-}
