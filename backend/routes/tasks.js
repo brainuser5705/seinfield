@@ -16,11 +16,11 @@ router.patch('/:task_id', (req, res) => {
 
 // Create a task
 router.post('/', async (req, res) => {
-    const {title, active, startDate, streak} = req.body;
+    const {title, active, startDate, endDate} = req.body;
     const taskJson = {
         "title": title,
         "startDate": startDate,
-        "streak": streak,
+        "endDate": endDate,
         "active": active
     }
     try {

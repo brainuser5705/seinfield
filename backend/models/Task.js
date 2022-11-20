@@ -15,8 +15,8 @@ const taskSchema = new Schema({
         type: String,
         required: true
     },
-    streak: {
-        type: Number,
+    endDate: {
+        type: String,
         required: true
     }
 })
