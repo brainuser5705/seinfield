@@ -8,6 +8,7 @@
         <script src="business.js"></script>
     </head>
     <body onload="generateMonth(new Date())">
+        
         <div style="margin:10em; text-align: center;">
             <h1 id="title">Placeholder</h1>
             <button onclick="decrementCurrentMonth()" style="margin-top:1em; margin-left:3em; margin-right:3em; margin-bottom: 2em;">Prev</button>
@@ -17,8 +18,10 @@
                     <table id="calendar" class="table table-bordered"></table>
                 </div>
             </div>
-            <button onClick="addTask()" style="margin-top: 2em;">Add Task</button>
+            <button onClick="openAddTask()" style="margin-top: 2em;">Add Task</button>
+            <div id="form"></div>
         </div>
+
     </body>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
