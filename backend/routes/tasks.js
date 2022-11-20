@@ -14,12 +14,11 @@ router.get('/:id', async (req, res) => {
 });
 
 // Increment the end date
-router.patch('/:task_id/increment', async (req, res) => {
+router.patch('/:id/increment', async (req, res) => {
     td = req.body.dateString;
     console.log(td);
-    const {task_id} = req.params;
-    await Task.updateOne({task_id: task_id},{endDate: td});
-    return res.json(await Task.findOne({task_id: task_id}).exec());
+    const {id} = req.params;
+    await Task.updateOne({_id: id},{endDate: td});
 });
 
 // Create a task
